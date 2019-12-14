@@ -13,7 +13,9 @@ class TestDay14 < Test::Unit::TestCase
     INPUT
 
     factory = NanoFactory.new(text)
-    assert_equal(31, factory.ore_needed_for(1, "FUEL"))
+    assert_equal(31, factory.cost(1, "FUEL"))
+    assert_equal(31 * 2, factory.cost(2, "FUEL"))
+    assert_equal(31 * 3, factory.cost(3, "FUEL"))
   end
 
   def test_2
@@ -28,7 +30,7 @@ class TestDay14 < Test::Unit::TestCase
     INPUT
 
     factory = NanoFactory.new(text)
-    assert_equal(165, factory.ore_needed_for(1, "FUEL"))
+    assert_equal(165, factory.cost(1, "FUEL"))
   end
 
   def test_3
@@ -45,7 +47,8 @@ class TestDay14 < Test::Unit::TestCase
     INPUT
 
     factory = NanoFactory.new(text)
-    assert_equal(13312, factory.ore_needed_for(1, "FUEL"))
+    assert_equal(13312, factory.cost(1, "FUEL"))
+    assert_equal(82892753, factory.max_fuel(1_000_000_000_000))
   end
 
   def test_4
@@ -65,7 +68,8 @@ class TestDay14 < Test::Unit::TestCase
     INPUT
 
     factory = NanoFactory.new(text)
-    assert_equal(180697, factory.ore_needed_for(1, "FUEL"))
+    assert_equal(180697, factory.cost(1, "FUEL"))
+    assert_equal(5586022, factory.max_fuel(1_000_000_000_000))
   end
 
   def test_5
@@ -90,6 +94,7 @@ class TestDay14 < Test::Unit::TestCase
     INPUT
 
     factory = NanoFactory.new(text)
-    assert_equal(2210736, factory.ore_needed_for(1, "FUEL"))
+    assert_equal(2210736, factory.cost(1, "FUEL"))
+    assert_equal(460664, factory.max_fuel(1_000_000_000_000))
   end
 end

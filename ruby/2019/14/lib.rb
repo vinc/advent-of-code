@@ -30,7 +30,7 @@ class NanoFactory
     end
   end
 
-  def ore_needed_for(quantity, name, needed = {}, wasted = {})
+  def cost(quantity, name, needed = {}, wasted = {})
     wasted[name] ||= 0
     needed[name] ||= 0
     reaction_quantity, inputs = @reactions[name]
@@ -43,10 +43,14 @@ class NanoFactory
       inputs.each do |input|
         needed[input.name] ||= 0
         needed[input.name] += mult * input.quantity
-        ore_needed_for(input.quantity * mult, input.name, needed, wasted) if input.name != "ORE"
+        cost(input.quantity * mult, input.name, needed, wasted) if input.name != "ORE"
       end
     end
     needed[name] = 0
     needed["ORE"]
+  end
+
+  def max_fuel(n)
+    (1..n).bsearch { |i| cost(i, "FUEL") > n } - 1
   end
 end
