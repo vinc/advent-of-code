@@ -7,13 +7,26 @@ class OutsideError < StandardError
 end
 
 class Node
-  attr_accessor :children, :x, :y, :goal
+  attr_accessor :parent, :children, :x, :y, :goal
 
   def initialize(x, y, goal: false)
     @goal = goal
     @x = x
     @y = y
     @children = Set.new
+  end
+
+  def backtrack(grid)
+    d = 0
+    n = self
+    while n.parent
+      d += 1
+      n = n.parent
+      grid[n.y][n.x] = "o"
+      sleep 0.2
+      puts draw_grid(grid)
+    end
+    d
   end
 
   def hash
@@ -29,13 +42,15 @@ class Node
   end
 end
 
-def bfs(node)
+def bfs(node, grid)
   max_depth = 0
   queue = []
   queue.push([node, 0])
 
   while queue.size != 0
     n, d = queue.shift
+    grid[n.y][n.x] = "o"
+    puts draw_grid(grid)
     max_depth = d if n.goal && d > max_depth
     n.children.each do |child|
       queue.push([child, d + 1])
@@ -57,6 +72,7 @@ def draw_grid(grid, border = true)
         when "O" then "O".bold.red
         when "#" then "#"
         when "." then "."
+        when "o" then "o".bold.cyan
         else " "
       end
     end.join
@@ -95,9 +111,13 @@ until computer.halted?
       status = outputs.shift
 
       grid[y][x] = "D" unless "XO".include?(grid[y][x] || " ")
-      puts draw_grid(grid) # if status == 2 || steps % 10000 == 0
+      # puts draw_grid(grid) # if status == 2 || steps % 10000 == 0
 
-      # puts bfs(root) if found # && steps % 1000 == 0
+      if found && steps % 1000 == 0
+        # fill = grid.dup.map(&:dup)
+        # depth = bfs(root, fill)
+        # p depth
+      end
 
       dy, dx = dirs[dir]
       if status == 0
@@ -109,6 +129,7 @@ until computer.halted?
           new_node = discovered_nodes[new_node]
         else
           node.children.add(new_node)
+          new_node.parent = node
           discovered_nodes[new_node] = node
         end
         node = new_node
@@ -121,6 +142,9 @@ until computer.halted?
         raise OutsideError if x < 0 || y < 0
         if status == 2
           found = true
+          fill = grid.dup.map(&:dup)
+          puts node.backtrack(fill)
+          exit
           node.children.add(Node.new(x, y, goal: true))
           begin
             grid[y][x] = "O"
