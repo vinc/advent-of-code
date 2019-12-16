@@ -5,8 +5,8 @@ class TestDay16 < Test::Unit::TestCase
   def test_1
     input = "12345678"
     signal = FFT.new(input)
-    assert_equal([1,  0, -1,  0,  1,  0, -1,  0], signal.repeat_pattern(1))
-    assert_equal([0,  1,  1,  0,  0, -1, -1,  0], signal.repeat_pattern(2))
+    assert_equal([1,  0, -1,  0,  1,  0, -1,  0], 8.times.map { |i| signal.repeating_pattern(1, i) })
+    assert_equal([0,  1,  1,  0,  0, -1, -1,  0], 8.times.map { |i| signal.repeating_pattern(2, i) })
     assert_equal("48226158", signal.phase(1))
     assert_equal("34040438", signal.phase(2))
     assert_equal("03415518", signal.phase(3))
