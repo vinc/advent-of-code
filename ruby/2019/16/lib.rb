@@ -9,7 +9,11 @@ class FFT
   def phase(n, offset: 0)
     @signal = @input.dup
     n.times do |step|
-      @size.times.each { |i| @signal.setbyte(i, 48 + output(i + 1)) }
+      @size.times.each do |i|
+        next if i < offset
+
+        @signal.setbyte(i, 48 + output(i + 1))
+      end
       yield(step + 1, @signal.slice(offset, 8)) if block_given?
     end
     @signal.slice(offset, 8)
