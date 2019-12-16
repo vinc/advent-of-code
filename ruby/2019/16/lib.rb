@@ -6,15 +6,13 @@ class FFT
     @size = @input.size
   end
 
-  def phase(n)
+  def phase(n, offset: 0)
     @signal = @input.dup
     n.times do |step|
-      @size.times.each do |i|
-        @signal.setbyte(i, 48 + output(i + 1))
-      end
-      yield(step + 1, @signal) if block_given?
+      @size.times.each { |i| @signal.setbyte(i, 48 + output(i + 1)) }
+      yield(step + 1, @signal.slice(offset, 8)) if block_given?
     end
-    @signal
+    @signal.slice(offset, 8)
   end
 
   def output(n)
