@@ -1,11 +1,9 @@
-Advent of Code
-==============
+# Advent of Code
 
-[Advent of Code](https://adventofcode.com/) is an Advent calendar of small
-programming puzzles.
+[Advent of Code](https://adventofcode.com/) is an annual set of programming
+challenges that follow an Advent calendar.
 
-This repository contains my solutions for the speed contest.
+## Participations
 
-To run a solution in ruby:
-
-    $ ruby ruby/2019/01/aoc1.rb ruby/2019/01/input.txt
+- 2019: [Ruby](ruby/2019)
+- 2022: [MOROS Lisp](lisp/2022)
