@@ -5,7 +5,7 @@ challenges that follow an Advent calendar.
 
 ## Participations
 
-- [Ruby](https://www.ruby-lang.org/):
+- [Ruby](https://www.ruby-lang.org/)
   - [2019](ruby/2019)
   - [2022](ruby/2022)
   - [2023](ruby/2023)
