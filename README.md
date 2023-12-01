@@ -1,7 +1,7 @@
 # Advent of Code
 
-[Advent of Code](https://adventofcode.com/) is an annual set of programming
-challenges that follow an Advent calendar.
+[Advent of Code](https://adventofcode.com/) is a yearly programming event in
+December where participants solve daily puzzles.
 
 ## Participations
 
