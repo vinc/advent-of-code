@@ -11,3 +11,4 @@ December where participants solve daily puzzles.
   - [2023](ruby/2023)
 - [MOROS Lisp](http://moros.cc/lisp.html)
   - [2022](lisp/2022) (obsolete code)
+  - [2023](lisp/2023) (obsolete code)
