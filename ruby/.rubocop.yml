@@ -1,2 +1,5 @@
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
