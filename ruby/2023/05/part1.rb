@@ -1,40 +1,31 @@
-# NOTE: I ran out of time before breakfast to finish this one
-
 seeds = []
-values = {}
-keys = {}
-from = ""
-dest = ""
+cats = []
+maps = {}
+
 ARGF.each_line do |line|
-  line = line.chomp
-  case line
-  when /seeds: /
-    seeds = line[7..].split.map(&:to_i)
-  when "a".."z"
-    from, dest = line[0..-6].split("-to-")
-    keys[from] = dest
-    values[from] = []
-    values[dest] = []
-  when "0".."9"
-    a, b, n = line.split.map(&:to_i)
-    values[from] << Range.new(a, a + n)
-    values[dest] << Range.new(b, b + n)
-    puts "#{from}: #{a}..#{a + n}, #{dest}: #{b}..#{b + n}"
+  words = line.chomp.split
+  case words[0]
+  when "seeds:"
+    seeds = words[1..].map(&:to_i)
+  when /[a-z]/
+    cat = words.first.split("-to-").last
+    maps[cat] = []
+    cats << cat
+  when /[0-9]/
+    dst, src, len = words.map(&:to_i)
+    range = src...(src + len)
+    offset = dst - src
+    maps[cats.last] << [range, offset]
   end
 end
 
-dest = "seed"
-until dest == "location"
-  from = dest
-  dest = keys[from]
-  puts "#{from} -> #{dest}"
-  # p values[from].count
-  # p values[dest].count
-  seeds.each do |seed| # FIXME
-    values[from].each_with_index do |r1, i| # FIXME
-      if r1.include? seed
-        puts "#{seed} --> #{r1} (#{i})"
-      end
+locs = seeds.map do |num|
+  cats.each do |cat|
+    maps[cat].any? do |range, offset|
+      num += offset if range.include? num
     end
   end
+  num
 end
+
+p locs.min
