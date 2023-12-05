@@ -1,11 +1,18 @@
 (load "/lib/lisp/core.lsp")
 
-(var line "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green")
-(var games (str.split (second (str.split line ": ")) "; "))
-(map (fun (game) (map words (str.split game ", "))) games)
+(var puzzle (dict "red" 12 "green" 13 "blue" 14))
 
-(def (check line) (do
-  (var id (str->num (second (words (first (str.split line ": "))))))
-  (var games (str.split (second (str.split line ": ")) "; "))
-  (map (fun (game) (map words (str.split game ", "))) games)
+(def (aoc-cube s)
+  (<= (str->num (first (words s))) (get puzzle (second (words s)))))
 
+(def (aoc-cubes s)
+  (map aoc-cube (str.split s ", ")))
+
+(def (aoc-game s) (do
+  (var game (str.split s ": "))
+  (var id (str->num (second (words (first game)))))
+  (var res (map aoc-cubes (str.split (second game) "; ")))
+  (if (contains? (reduce concat res) false) 0 id)))
+
+(print (reduce +
+  (map aoc-game (lines (read (first args))))))
