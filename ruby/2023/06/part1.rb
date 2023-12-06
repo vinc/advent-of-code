@@ -1,7 +1,2 @@
 ts, ds = ARGF.read.lines.map { |s| s.split(":").last.split.map(&:to_i) }
-games = ts.zip(ds).map do |time, dist|
-  (0..time).filter do |hold|
-    (time - hold) * hold > dist
-  end.count
-end
-p games.flatten.reduce(&:*)
+p ts.zip(ds).map { |t, d| (0..t).count { |h| (t - h) * h > d } }.reduce(&:*)
