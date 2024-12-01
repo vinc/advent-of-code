@@ -1,4 +1,2 @@
-input = ARGF.read.split("\n").map { |line| line.split.map(&:to_i) }
-l1 = input.map(&:first).sort
-l2 = input.map(&:last).sort
-puts l1.zip(l2).map { |a, b| (a - b).abs }.sum
+a, b = ARGF.read.split.map(&:to_i).each_slice(2).to_a.transpose.map(&:sort)
+puts a.zip(b).map { |x, y| (x - y).abs }.sum

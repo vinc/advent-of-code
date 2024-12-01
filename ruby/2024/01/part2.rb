@@ -1,4 +1,2 @@
-input = ARGF.read.split("\n").map { |line| line.split.map(&:to_i) }
-l1 = input.map(&:first)
-l2 = input.map(&:last)
-puts l1.map { |x| x * l2.count(x) }.sum
+a, b = ARGF.read.split.map(&:to_i).each_slice(2).to_a.transpose
+puts a.map { |x| x * b.count(x) }.sum
