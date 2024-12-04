@@ -17,6 +17,7 @@ The most important is to have fun!
   - [2019](ruby/2019)
   - [2022](ruby/2022)
   - [2023](ruby/2023)
+  - [2024](ruby/2024)
 - [MOROS Lisp](http://moros.cc/lisp.html)
   - [2022](lisp/2022) (obsolete code)
   - [2023](lisp/2023)
